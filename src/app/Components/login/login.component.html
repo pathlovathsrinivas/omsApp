@@ -1,0 +1,49 @@
+<!-- login component -->
+<div class="main-div">
+  <mat-card class="example-card">
+    <mat-card-header class="main-div">
+
+      <mat-card-title style="margin-top: 15px;">
+        Sign in
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <!-- login form  -->
+      <form [formGroup]="signInForm" (ngSubmit)="login()">
+        <!-- Username input form field with validation  -->
+        <mat-form-field class="main-div">
+          <input matInput autocomplete="off" placeholder="username" name="username" id="username" type="text"
+            formControlName="username" class="form-control" autocomplete="disabled" />
+          <mat-hint style="color: red;"
+            *ngIf="((signInForm.get('username').invalid) && (signInForm.get('username').touched || signInForm.get('username').dirty))">
+            This field is required
+          </mat-hint>
+
+        </mat-form-field>
+        <!-- Password input form field with validation -->
+        <mat-form-field class="main-div">
+          <input matInput placeholder="Password" name="password" type="password" id="password" value=""
+            autocomplete="new-password" formControlName="password">
+          <mat-hint style="color: red;"
+            *ngIf="((signInForm.get('password').invalid) && (signInForm.get('password').touched ||signInForm.get('password').dirty))">
+            <!-- This field is required -->
+            <div *ngIf="signInForm.get('password').errors['required']">
+              <small>This field is required</small>
+            </div>
+            <div *ngIf="signInForm.get('password').hasError('minlength')">
+              <small>Password should contain atleast 6 charecters</small>
+            </div>
+          </mat-hint>
+        </mat-form-field> <br>
+        <mat-checkbox class="main-div" type="checkbox" formControlName="remember">
+          Remember Me
+        </mat-checkbox>
+
+        <button class="light-button" mat-flat-button color="primary">Login</button>
+
+      </form>
+
+    </mat-card-actions>
+  </mat-card>
+
+</div>

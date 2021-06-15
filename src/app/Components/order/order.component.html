@@ -1,0 +1,172 @@
+<div class="modal-body row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+
+        <div class="content">
+
+            <div class="card highlight-card card-small">
+                <h3 style="margin-top: 13px;">Order Management System</h3>
+            </div>
+        </div>
+
+        <button mat-raised-button color="primary" style="margin-left: 900px;" (click)="createOrder()">
+            <mat-icon>add</mat-icon>New Order
+        </button><br>
+
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">S.no</th>
+                    <th scope="col">Order Number</th>
+                    <th scope="col">Order Due Date</th>
+                    <th scope="col">Customer buyer name</th>
+                    <th scope="col">Customer Address</th>
+                    <th scope="col">Customer Phone</th>
+                    <th scope="col">OrderTotal</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>
+                        {{ order.Order_Number }}
+                    </td>
+                    <td>{{ order.Order_Due_Date }}</td>
+                    <td>{{ order.Customer_buyer_name }}</td>
+                    <td>
+                        {{ order.Customer_Address }}
+                    </td>
+                    <td>{{ order.Customer_Phone }}</td>
+                    <td>{{ order.OrderTotal }}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" (click)="editOrder(order)">Edit</button>
+                        <button type="button" class="btn btn-danger" (click)="deleteOrder(order)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="order_creation_Modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <mat-card style="width: 770px;background-color: #73c20e;height: 55px;">
+                    <div style="display:flex; flex-direction: row;">
+                        <h3 class="modal-title" *ngIf="!editFlag&&!editValues" id="exampleModalLabel">Create New Order
+                        </h3>
+
+                        <h3 class="modal-title" *ngIf="!editFlag&&editValues" id="exampleModalLabel">Edit Order
+                            Details
+                        </h3>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-left: 580px;"
+                            (click)="closeForm(order_creation_Modal);">
+                            <span aria-hidden="true" class="modal-title">&times;</span>
+                        </button> -->
+                    </div>
+                </mat-card>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="closeForm(order_creation_Modal);">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form #order_creation_Modal="ngForm" novalidate>
+                <mat-form-field fxFlex="22">
+                    <input matInput placeholder="Order_Number" type="number" name="Order_Number" [disabled]="editFlag"
+                        [(ngModel)]="orderModel.Order_Number" #Order_Number="ngModel" required>
+                    <mat-error *ngIf="Order_Number.invalid && (Order_Number.dirty ||Order_Number.touched)">
+                        <div *ngIf="Order_Number.errors['required']">
+                            <small>This field is required</small>
+                        </div>
+                    </mat-error>
+                </mat-form-field> <br>
+                <mat-form-field fxFlex="22">
+                    <input matInput required placeholder="Customer_buyer_name" name="Customer_buyer_name" type="text"
+                        [disabled]="editFlag" [(ngModel)]="orderModel.Customer_buyer_name"
+                        #Customer_buyer_name="ngModel" required>
+
+                    <mat-error
+                        *ngIf="Customer_buyer_name.invalid && (Customer_buyer_name.dirty ||Customer_buyer_name.touched)">
+                        <div *ngIf="Customer_buyer_name.errors['required']">
+                            <small>This field is required</small>
+                        </div>
+                    </mat-error>
+
+                </mat-form-field>
+
+
+
+                <mat-form-field style="width:400px !important">
+                    <textarea matInput placeholder="Customer_Address" type="text" name="Customer_Address"
+                        [(ngModel)]="orderModel.Customer_Address" [disabled]="editFlag" #Customer_Address="ngModel"
+                        required></textarea>
+
+                    <mat-error *ngIf="Customer_Address.invalid && (Customer_Address.dirty ||Customer_Address.touched)"
+                        style="color: red;">
+                        <div *ngIf="Customer_Address.errors['required']">
+                            <small> This field is required..</small>
+                        </div>
+                    </mat-error>
+
+                </mat-form-field><br>
+                <mat-form-field fxFlex="20">
+                    <input matInput placeholder="Customer_Phone" type="text" name="Customer_Phone" maxlength="10"
+                        minlength="10" [(ngModel)]="orderModel.Customer_Phone" [disabled]="editFlag"
+                        #Customer_Phone="ngModel" (keypress)="isNumber($event)" required>
+
+                    <mat-error *ngIf="Customer_Phone.invalid && (Customer_Phone.dirty ||Customer_Phone.touched)"
+                        style="color: red;">
+                        <div *ngIf="Customer_Phone.errors['required']">
+                            <small>This field is required</small>
+                        </div>
+                    </mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field fxFlex="20">
+                    <input matInput placeholder="Order_Due_Date" type="Date" name="Order_Due_Date"
+                        [(ngModel)]="orderModel.Order_Due_Date" [disabled]="editFlag" #Order_Due_Date="ngModel"
+                        required>
+
+                    <mat-error *ngIf="Order_Due_Date.invalid && (Order_Due_Date.dirty ||Order_Due_Date.touched)"
+                        style="color: red;">
+                        <div *ngIf="Order_Due_Date.errors['required']">
+                            <small>This field is required</small>
+                        </div>
+                    </mat-error>
+
+                </mat-form-field>
+                <mat-form-field fxFlex="20">
+                    <input matInput placeholder="OrderTotal" type="number" name="OrderTotal"
+                        [(ngModel)]="orderModel.OrderTotal" [disabled]="editFlag" #OrderTotal="ngModel" required>
+
+                    <mat-error *ngIf="OrderTotal.invalid && (OrderTotal.dirty ||OrderTotal.touched)"
+                        style="color: red;">
+                        <div *ngIf="OrderTotal.errors['required']">
+                            <small>This field is required</small>
+                        </div>
+                    </mat-error>
+
+                </mat-form-field>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        [disabled]="!order_creation_Modal.form.valid"
+                        (click)="createNewOrder(orderModel,order_creation_Modal);">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<app-confirm-service></app-confirm-service>
