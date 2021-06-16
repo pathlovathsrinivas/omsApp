@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router) {}
   signInForm: FormGroup;
   ngOnInit(): void {
+
+    //Login Form validations 
     this.signInForm = new FormGroup({
       username: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [

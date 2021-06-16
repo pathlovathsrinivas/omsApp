@@ -9,11 +9,11 @@
                 <h3 style="margin-top: 13px;">Order Management System</h3>
             </div>
         </div>
-
+<!-- New order creation Button  -->
         <button mat-raised-button color="primary" style="margin-left: 900px;" (click)="createOrder()">
             <mat-icon>add</mat-icon>New Order
         </button><br>
-
+<!-- All Order detail table -->
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
@@ -53,7 +53,7 @@
     <div class="col-md-1">
     </div>
 </div>
-
+<!-- New order creation bootstrap model  -->
 <div class="modal fade bd-example-modal-lg" id="order_creation_Modal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -161,12 +161,12 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
                         [disabled]="!order_creation_Modal.form.valid"
-                        (click)="createNewOrder(orderModel,order_creation_Modal);">Submit</button>
+                        (click)="createNewOrder(orderModel);">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
+<!-- confirm serve somponent for dialogue box  -->
 <app-confirm-service></app-confirm-service>

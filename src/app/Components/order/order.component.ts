@@ -62,7 +62,7 @@ export class OrderComponent implements OnInit {
   }
 
   // For new user creations submit method
-  createNewOrder(orderModel,form) {
+  createNewOrder(orderModel) {
     if (this.editValues === true) {
       this.orders.forEach((element) => {
         if (element.Order_Number === orderModel.Order_Number) {
@@ -75,9 +75,9 @@ export class OrderComponent implements OnInit {
       this.orders = filtrvalue;
     }
     this.editValues = false;
-
+//for opening the bootstrap model
     $('#order_creation_Modal').modal('toggle');
-    form.reset();
+    
    
   }
   //  to check isNumber
@@ -92,6 +92,7 @@ export class OrderComponent implements OnInit {
 
   //  For Form closing
   closeForm(form: any) {
+    //for closing the bootstrap model
     $('#order_creation_Modal').modal('toggle');
     this.orderModel = new order();
     form.reset();
@@ -99,7 +100,6 @@ export class OrderComponent implements OnInit {
 
   //  Create user button flags
   createOrder() {
-    console.log('daadda');
     $('#order_creation_Modal').modal('show');
     this.editFlag = false;
     this.editValues = false;
